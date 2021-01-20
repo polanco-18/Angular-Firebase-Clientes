@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de Clientes</span>
+      <button class="btn btn-success float-end" routerLink="/createClientes"><i class="fas fa-plus-square"></i> Agregar</button>
+      <div class="alert alert-primary mt-4" role="alert">
+        <b>Promedio de edades : {{promedio}} &nbsp;&nbsp;&nbsp; Desviacion estandar de edades : {{desviacion}}</b>
+      </div>
+      <div class="table-responsive mt-5">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Fecha Nacimiento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td>{{cliente.Nombre}}</td>
+            <td>{{cliente.Apellido}}</td>
+            <td>{{cliente.Edad}}</td>
+            <td>{{cliente.FechaNacimiento | date:'dd-MM-yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>

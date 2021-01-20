@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "appinventor-4caaa": {
+      "hosting": {
+        "Clientes": [
+          "appinventor-4caaa"
+        ]
+      }
+    }
+  }
+}
