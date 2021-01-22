@@ -28,24 +28,35 @@ export class CreateClientesComponent implements OnInit {
 
   agregarCliente(){
     this.submitted=true;
+    var f = new Date();
+    var dateNow;
+    if(f.getMonth() +1 < 10){
+      dateNow = f.getFullYear() + "-0" + (f.getMonth() +1) + "-" +f.getDate();
+    }else{
+      dateNow = f.getFullYear() + "-" + (f.getMonth() +1) + "-" +f.getDate();
+    }
     if(this.createCliente.invalid){
       return;
+    }else if(this.createCliente.value.FechaNacimiento>dateNow){
+      this.toastr.error(this.createCliente.value.FechaNacimiento+' la fecha no puede ser mayor a la de hoy','Error de fecha de nacimiento');
+      return;
+    }else{
+      this.loading=true;
+      const cliente : any = {
+        Nombre:this.createCliente.value.Nombre,
+        Apellido:this.createCliente.value.Apellido,
+        FechaNacimiento:this.createCliente.value.FechaNacimiento,
+        FechaCreacion: new Date(),
+        FechaActualizacion: new Date()
+      }
+      this._clienteService.agregarCliente(cliente).then(()=>{
+        this.toastr.success(this.createCliente.value.Nombre+' registrado con exito!','Cliente Registrado');
+        this.loading=false;
+        this.router.navigate(['/list-clientes']);
+      }).catch(error=>{
+        this.loading=false;
+        this.toastr.error(error);
+      })
     }
-    this.loading=true;
-    const cliente : any = {
-      Nombre:this.createCliente.value.Nombre,
-      Apellido:this.createCliente.value.Apellido,
-      FechaNacimiento:this.createCliente.value.FechaNacimiento,
-      FechaCreacion: new Date(),
-      FechaActualizacion: new Date()
-    }
-    this._clienteService.agregarCliente(cliente).then(()=>{
-      this.toastr.success(this.createCliente.value.Nombre+' registrado con exito!','Cliente Registrado');
-      this.loading=false;
-      this.router.navigate(['/list-clientes']);
-    }).catch(error=>{
-      this.loading=false;
-      this.toastr.error(error);
-    })
   }
 }
